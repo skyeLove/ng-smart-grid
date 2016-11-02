@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+  <meta charset="UTF-8">
+  <title>Smart Grid</title>
+  <style>
+    table{ border-collapse:collapse;}
+    table, td, th{border:1px solid #000;}
+    td{ padding:5px; }
+  </style>
+  <script src="lib/angular.js"></script>
+  <script src="../src/ng-smart-grid.js"></script>
+  <script src="index.js"></script>
+</head>
+<body ng-controller="Main">
+<table sg-grid="list" sg-page-size="5" sg-set-decision="customDecision">
+  <thead>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>
+      <input type="text" search-input="{{'name'}}" />
+    </td>
+    <td></td>
+    <td>
+      <select search-select="{{'error'}}" ng-model="errRule">
+        <option value="err1">err1</option>
+        <option value="err2">err2</option>
+        <option value="err3">err3</option>
+        <option value="err4">err4</option>
+        <option value="err5">err5</option>
+        <option value="err6">err6</option>
+      </select>
+    </td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="item in sgList">
+    <td>{{item.index}}</td>
+    <td>#{{item.id}}</td>
+    <td><input type="text" ng-model="item.name" /></td>
+    <td>{{item.age}}</td>
+    <td>
+      <span ng-repeat="errMsg in item.error"> {{errMsg}} </span>
+    </td>
+  </tr>
+  </tbody>
+  <tfoot>
+  <tr>
+    <td colspan="5" sg-pagination sg-pages-template="pagination.html"></td>
+  </tr>
+  </tfoot>
+</table>
+</body>
+</html>
