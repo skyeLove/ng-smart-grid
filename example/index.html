@@ -13,7 +13,7 @@
   <script src="index.js"></script>
 </head>
 <body ng-controller="Main">
-<table sg-grid="list" sg-page-size="5" sg-set-decision="customDecision">
+<table sg-grid="list" sg-page-size="25" sg-set-decision="customDecision">
   <thead>
   <tr>
     <td></td>
@@ -24,12 +24,9 @@
     <td></td>
     <td>
       <select search-select="{{'error'}}" ng-model="errRule">
+        <option value="-1">all</option>
         <option value="err1">err1</option>
         <option value="err2">err2</option>
-        <option value="err3">err3</option>
-        <option value="err4">err4</option>
-        <option value="err5">err5</option>
-        <option value="err6">err6</option>
       </select>
     </td>
   </tr>

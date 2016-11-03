@@ -1,16 +1,22 @@
 angular.module('app', ['smart-grid'])
   .controller('Main', function($scope){
     var list = [];
-    var names = ['foo', 'bar', 'jake', 'lint', 'inject', 'fish'];
+    var names = ['foo', 'bar', 'jake', 'lint', 'inject', 'fish', 'Allen', 'barry', 'merlin'];
     var namesln = names.length;
-    for(var i=0; i<12000; i++){
-      var j = window.parseInt(Math.random()*namesln - 1, 10);
+    for(var i=0; i<1200; i++){
+      var j = window.parseInt(Math.random()*namesln, 10);
+      var err = [];
+      if(j > namesln/2){
+        err.push('err1');
+      }else{
+        err.push('err2');
+      }
       list.push({
         index: i,
         id: i+1,
         name: names[j],
         age: 1,
-        error: ['err1', 'err2']
+        error: err
       });
     }
     $scope.list = list;
@@ -18,6 +24,7 @@ angular.module('app', ['smart-grid'])
 
     $scope.customDecision = function(row, cell, keyword, predicate){
       if(predicate === 'error'){
+        if(keyword == '-1'){ return true; }
         return cell.includes(keyword);
       }else{
         return cell.indexOf(keyword) > -1;
@@ -72,6 +79,8 @@ angular.module('app', ['smart-grid'])
 
       link: function(scope, element, attrs, ctrl){
         var predicate = attrs.searchSelect;
+
+        scope.errRule = '-1';
         scope.$watch('errRule', function(v){
           if(v){
             ctrl.search(v, predicate || '');

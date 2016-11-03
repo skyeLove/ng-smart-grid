@@ -111,10 +111,18 @@
     this.decision = function(row, cell, keyword, predicate){
       return cell.indexOf(keyword) > -1;
     };
+    this.replaceFn = function(cell, keyword, replacement, predicate){
+      if(cell.match(keyword)){
+        cell.replace(keyword, replacement);
+        return true;
+      }
+      return false;
+    }
   }
 
   DataCenter.prototype.search = search;
   DataCenter.prototype.setDecision = setDecision;
+  DataCenter.prototype.replaceByCol = replaceByCol;
 
   /**
    * 搜索数据
@@ -171,6 +179,23 @@
   function setDecision(decision){
     this.decision = decision;
   }
+
+  function replaceByCol(keyword, replacement, predicate){
+    var count = 0;
+    var rawData = this.rawData;
+    var replaceFn = this.replaceFn;
+    rawData.forEach(function(row){
+      var cell = row[predicate];
+      if(typeof cell === 'undefined'){ return; }
+      if(replaceFn(cell, keyword, replacement, predicate)){
+        count++;
+      }
+    });
+    return count;
+  }
+
+
+
 
 
 })(angular);
